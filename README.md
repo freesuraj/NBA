@@ -4,6 +4,9 @@ This is my personal hobby project to learn web scraping in python. It's a comman
 
 It uses [lxml](http://lxml.de/) for web scraping. I found another more interesting package called [scrapy](https://github.com/scrapy/scrapy) for web scraping. Underneath scrapy also depends on lxml. So I decided to try out using lxml first. 
 
+![screenshot](https://github.com/freesuraj/NBA/blob/master/demo.gif?raw=true)
+
+
 ### How to run?
 
 It uses `python3`, and relies on few libraries. Recommended way to try it is by installing python3 via [virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
