@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import time, requests
+import datetime as date
 from lxml import html
 from tabulate import tabulate
 from optparse import OptionParser
@@ -9,6 +10,8 @@ parser = OptionParser()
 parser.add_option("-s", "--standings", help="Show NBA standings", action="store_true", dest="standing")
 parser.add_option("-b", "--boxscore", dest="boxid",
                   help="Show box score of a match ID")
+parser.add_option("-y", "--yesterday", dest="minusDay",
+                  help="Shows game scores of y days before today")
 
 (options, args) = parser.parse_args()
 
@@ -127,8 +130,13 @@ def nbaBoxScore(box_id):
 
 
 
-def nbaScores():
+def nbaScores(day):
+	dayCount = int(day)
 	url = "http://sports.yahoo.com/nba/scoreboard/"
+	if dayCount > 0:
+		prevDate = date.date.today() + date.timedelta(days=-dayCount)
+		url = url+"?dateRange="+str(prevDate)
+		print(url)
 	tree = SportsTree(url).tree
 	lists = ['//*[@id="scoreboard-group-2"]/div/ul/li', '//*[@id="scoreboard-group-1"]/div/ul/li']
 	for list in lists:
@@ -184,7 +192,9 @@ if options.standing:
 elif options.boxid:
 	box_score = nbaBoxScore(options.boxid)
 	box_score.print_score()
+elif options.minusDay:
+	nbaScores(options.minusDay)
 else:
-	nbaScores()
+	nbaScores(0)
 
 
