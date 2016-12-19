@@ -73,6 +73,7 @@ def playerList(playerlist_xpath):
 	for row in playerlist_xpath:
 		players.append(playerScore(row))
 	return players
+
 def playerScore(row):
 	player_name = first(row.xpath('th/div/a/text()'))
 	mins 		= first(row.xpath('td[1]/text()'))
@@ -116,10 +117,10 @@ def nbaBoxScore(box_id):
 	team2 = TeamScore(hometeam_name, hometeam_scores)
 
 	# Players box score
-	vis_starter = '//*[@id="Col1-0-Boxscore"]/div[4]/div/div/div[1]/div[2]/div/table/tbody/tr'
-	vis_bench 	= '//*[@id="Col1-0-Boxscore"]/div[4]/div/div/div[1]/div[3]/div/table/tbody/tr'
-	hom_starter = '//*[@id="Col1-0-Boxscore"]/div[4]/div/div/div[2]/div[2]/div/table/tbody/tr'
-	hom_bench   = '//*[@id="Col1-0-Boxscore"]/div[4]/div/div/div[2]/div[3]/div/table/tbody/tr'
+	vis_starter = '//*[@id="Col1-0-Boxscore"]/div[3]/div/div/div[1]/div[2]/div/table/tbody/tr'
+	vis_bench 	= '//*[@id="Col1-0-Boxscore"]/div[3]/div/div/div[1]/div[3]/div/table/tbody/tr'
+	hom_starter = '//*[@id="Col1-0-Boxscore"]/div[3]/div/div/div[2]/div[2]/div/table/tbody/tr'
+	hom_bench   = '//*[@id="Col1-0-Boxscore"]/div[3]/div/div/div[2]/div[3]/div/table/tbody/tr'
 
 	visitor_players = playerList(tree.xpath(vis_starter)) + playerList(tree.xpath(vis_bench))
 	home_players = 	  playerList(tree.xpath(hom_starter)) + playerList(tree.xpath(hom_bench))
