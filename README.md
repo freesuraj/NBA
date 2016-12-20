@@ -39,6 +39,10 @@ deactivate
 ```
 python nba.py
 ```
+* To get Scores before X day(s):
+```
+python nba.py -y X
+```
 
 * To get box score of a match
 ```
@@ -60,6 +64,8 @@ Options:
   -s, --standings       Show NBA standings
   -b BOXID, --boxscore=BOXID
                         Show box score of a match ID
+  -y MINUSDAY, --yesterday=MINUSDAY
+                        Shows game scores of y days before today
 ```
 
 ## About
