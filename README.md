@@ -13,18 +13,23 @@ It uses `python3`, and relies on few libraries. Recommended way to try it is by 
 
 #### Install pip
 [pip](https://pip.readthedocs.io/en/stable/installing/) is available if you install python using `brew` in mac. If it doesn't work, you can try followings:
+
 ```shell
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python get-pip.py
 ```
+
 #### Using virtualenv
-Installation and Activation
+* Installation and Activation
+
 ```shell
 pip install virtualenv
 virtualenv <DIR>
 source <DIR>/bin/activate
 ````
-to deactivate:
+
+* To deactivate:
+
 ```shell
 deactivate
 ```
@@ -36,24 +41,31 @@ deactivate
 
 #### Running NBA
 * To get Today's scores:
+
 ```shell
 python nba.py
 ```
+
 * To get Scores before X day(s):
+
 ```shell
 python nba.py -y X
 ```
 
 * To get box score of a match
+
 ```shell
 python nba.py -b MATCHID
 ```
 
 * To get standings
+
 ```shell
 python nba.py -s
 ```
+
 * To get help
+
 ```shell
 python nba.py -h
 
