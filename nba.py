@@ -41,14 +41,15 @@ class PlayerScore:
 		return [ self.player_name, self.mins, self.pt, self.fg, self.three_fg, self.ft, self.reb, self.asst, self.to, self.blk, self.stl, self.pf, self.pm]
 
 class BoxScore:
-	def __init__(self, team1, team2, team1_players, team2_players):
+	def __init__(self, team1, team2, team1_players, team2_players, status):
 		self.team1 = team1
 		self.team2 = team2
 		self.team1_players = team1_players
 		self.team2_players = team2_players
+		self.status = status
 
 	def print_score(self):
-		print(self.team1.team_name, " vs ", self.team2.team_name)
+		print(self.team1.team_name, " vs ", self.team2.team_name, "( ", self.status, " )")
 		print(tabulate([self.team1.scores_quarter, self.team2.scores_quarter]))
 
 		players = []
@@ -102,6 +103,7 @@ def nbaBoxScore(box_id):
 	tree = SportsTree(url).tree
 	visitor_name = tree.xpath('//*[@id="Col1-0-Boxscore"]/div[1]/div[3]/div/div/div[1]/div/div[2]/div[1]/a/span/text()')[0]
 	hometeam_name   = tree.xpath('//*[@id="Col1-0-Boxscore"]/div[1]/div[3]/div/div/div[2]/div/div[2]/div[1]/a/span/text()')[0]
+	match_status = tree.xpath('//*[@id="Col1-0-Boxscore"]/div[1]/div[3]/div/div/div[3]/div/div[1]/div/text()')[0]
 
 	visitor_scores = []
 	vis_qtr_xpath = '//*[@id="Col1-0-Boxscore"]/div[1]/div[3]/div/div/div[3]/div/div[2]/div/table/tbody/tr[1]/td'
@@ -125,7 +127,8 @@ def nbaBoxScore(box_id):
 	visitor_players = playerList(tree.xpath(vis_starter)) + playerList(tree.xpath(vis_bench))
 	home_players = 	  playerList(tree.xpath(hom_starter)) + playerList(tree.xpath(hom_bench))
 
-	box_score = BoxScore(team1, team2, visitor_players, home_players)
+
+	box_score = BoxScore(team1, team2, visitor_players, home_players, match_status)
 	
 	return box_score
 
@@ -145,6 +148,7 @@ def nbaScores(day):
 		for row in tree.xpath(list):
 			link = 'div/div[1]/a'
 			game = 'div/div[1]/a/div/div/div/div[2]/div/'
+			time = 'div/div/a/div/div/div/div[1]/div[2]/div/div/div/span/text()'
 
 			visitor_city = row.xpath(game+'ul/li[1]/div[2]/div/span[1]/text()')[0]
 			visitor_name = row.xpath(game+'ul/li[1]/div[2]/span/div/text()')[0]
@@ -154,9 +158,11 @@ def nbaScores(day):
 			home_name = row.xpath(game+'ul/li[2]/div[2]/span/div/text()')[0]
 			home_score = row.xpath(game+'ul/li[2]/div[3]/text()')[0]
 
+			match_status = row.xpath(time)[0]
 			match_link = row.xpath(link)[0].get("href")
 			scores.append([visitor_city + " " + visitor_name, visitor_score])
 			scores.append([home_city + " " + home_name, home_score])
+			scores.append(["Result", match_status])
 			scores.append(["box score", match_link])
 			scores.append(["", ""])
 		print(tabulate(scores))
