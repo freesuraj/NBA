@@ -157,8 +157,13 @@ def nbaScores(day):
 			home_city = row.xpath(game+'ul/li[2]/div[2]/div/span[1]/text()')[0]
 			home_name = row.xpath(game+'ul/li[2]/div[2]/span/div/text()')[0]
 			home_score = row.xpath(game+'ul/li[2]/div[3]/text()')[0]
+            
+			match_status = ""
+			match_status_value = row.xpath(time)
 
-			match_status = row.xpath(time)[0]
+			if match_status_value:
+				match_status = match_status_value[0]
+                        
 			match_link = row.xpath(link)[0].get("href")
 			scores.append([visitor_city + " " + visitor_name, visitor_score])
 			scores.append([home_city + " " + home_name, home_score])
