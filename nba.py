@@ -141,8 +141,39 @@ def findPlayer(tree, result_xpath):
 		name = tree.xpath(result_xpath+'/text()')[0]
 		return (name, player_url)
 
-def searchPlayer(player_url):
-	print(player_url)
+def searchPlayer(isCurrent, player_url):
+	tree = SportsTree(player_url).tree
+	parsables = ['/p[1]']
+	if isCurrent:
+		parsables.append('/p[2]')
+
+	title		=		('//*[@id="info"]/div[4]/div[1]/div', '/strong/text()')
+	games 		=  		('//*[@id="info"]/div[4]/div[2]/div[1]', '/text()')
+	points 		=	 	('//*[@id="info"]/div[4]/div[2]/div[2]', '/text()')
+	rebounds  	=		('//*[@id="info"]/div[4]/div[2]/div[3]', '/text()')
+	assists  	= 		('//*[@id="info"]/div[4]/div[2]/div[4]', '/text()')
+
+	fg 			= 		('//*[@id="info"]/div[4]/div[3]/div[1]', '/text()')
+	three_fg 	=		('//*[@id="info"]/div[4]/div[3]/div[2]', '/text()')
+	ft 			=		('//*[@id="info"]/div[4]/div[3]/div[3]', '/text()')
+	efg			=		('//*[@id="info"]/div[4]/div[3]/div[4]', '/text()')
+
+	per 		=		('//*[@id="info"]/div[4]/div[4]/div[1]', '/text()')
+	ws 			=		('//*[@id="info"]/div[4]/div[4]/div[2]', '/text()')
+
+	fields = [title, games, points, rebounds, assists, fg, three_fg, ft, efg, per, ws]
+	headers = ["", "GM", "PT", "RB", "AST", "FG%", "3FG%", "FT%", "eFG", "PER", "WS"]
+
+	output = []
+	for parsable in parsables:
+		list = []
+		for aField in fields:
+			list.append(first(tree.xpath(aField[0]+parsable+aField[1])))
+		output.append(list)
+
+	output.append([])
+	print(tabulate(output, headers = headers))
+	return
 
 def playerProfile(player_name):
 	print("Searching for", player_name)
@@ -157,11 +188,11 @@ def playerProfile(player_name):
 	retired = findPlayer(tree, retired_player_result_xpath)
 
 	if current:
-		print("Found active player", current[0])
-		searchPlayer(base_url+current[1])
+		print("Found active player\n", current[0])
+		searchPlayer(True, base_url+current[1])
 	elif retired:
-		print("Found retired player", retired[0])
-		searchPlayer(base_url+retired[1])
+		print("Found retired player\n", retired[0])
+		searchPlayer(False, base_url+retired[1])
 	else:
 		print("Can't find player", player_name)
 	

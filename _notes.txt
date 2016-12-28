@@ -3,6 +3,9 @@ current_player_xpath = //*[@id="players"]/div[1]/div[1]/strong/a
 
 summary block
 //*[@id="info"]/div[4]
+//*[@id="info"]/div[4]/div[1]/div/h4
+
+title: //*[@id="info"]/div[4]/div[1]/div/p[1]/strong
 
 Career: //*[@id="info"]/div[4]/div[1]/div/p[1]
 Season: //*[@id="info"]/div[4]/div[1]/div/p[2]

@@ -64,6 +64,12 @@ python nba.py -b MATCHID
 python nba.py -s
 ```
 
+* To get Profile of a Player
+
+```shell
+python nba.py -p 'Kobe Bryant'
+```
+
 * To get help
 
 ```shell
@@ -78,6 +84,8 @@ Options:
                         Show box score of a match ID
   -y MINUSDAY, --yesterday=MINUSDAY
                         Shows game scores of y days before today
+  -p PLAYER_NAME, --player=PLAYER_NAME
+                        Get Player profile
 ```
 
 ## About
