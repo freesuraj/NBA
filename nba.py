@@ -12,6 +12,8 @@ parser.add_option("-b", "--boxscore", dest="boxid",
                   help="Show box score of a match ID")
 parser.add_option("-y", "--yesterday", dest="minusDay",
                   help="Shows game scores of y days before today")
+parser.add_option("-p", "--player", dest="player_name",
+                  help="Get Player profile")
 
 (options, args) = parser.parse_args()
 
@@ -132,7 +134,23 @@ def nbaBoxScore(box_id):
 	
 	return box_score
 
-
+def playerProfile(player_name):
+	print("Searching for", player_name)
+	base_url = 'http://www.basketball-reference.com'
+	url = base_url+"/search/search.fcgi?search="+player_name
+	tree = SportsTree(url).tree
+	first_result_xpath = '//*[@id="players"]/div[1]/div[1]/a'
+	search_result = tree.xpath(first_result_xpath)
+	if search_result:
+		player_url = tree.xpath(first_result_xpath)[0].get('href')
+		name = tree.xpath(first_result_xpath+'/text()')[0]
+		print(name)
+		url = base_url + player_url
+		tree = SportsTree(url).tree
+	else:
+		print("Couldn't find NBA Player ", player_name)
+	
+	return
 
 def nbaScores(day):
 	dayCount = int(day)
@@ -206,6 +224,8 @@ elif options.boxid:
 	box_score.print_score()
 elif options.minusDay:
 	nbaScores(options.minusDay)
+elif options.player_name:
+	playerProfile(options.player_name)
 else:
 	nbaScores(0)
 

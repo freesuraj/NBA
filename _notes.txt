@@ -1,0 +1,22 @@
+summary block
+//*[@id="info"]/div[4]
+
+Career: //*[@id="info"]/div[4]/div[1]/div/p[1]
+Season: //*[@id="info"]/div[4]/div[1]/div/p[2]
+
+Games: 	//*[@id="info"]/div[4]/div[2]/div[1]
+	Career: //*[@id="info"]/div[4]/div[2]/div[1]/p[1]
+	Season: //*[@id="info"]/div[4]/div[2]/div[1]/p[2]
+
+GM:  //*[@id="info"]/div[4]/div[2]/div[1]
+PTS: //*[@id="info"]/div[4]/div[2]/div[2]
+RB:  //*[@id="info"]/div[4]/div[2]/div[3]
+AST: //*[@id="info"]/div[4]/div[2]/div[4]
+
+FG%: //*[@id="info"]/div[4]/div[3]/div[1]
+3%:  //*[@id="info"]/div[4]/div[3]/div[2]
+FT%: //*[@id="info"]/div[4]/div[3]/div[3]
+eFG: //*[@id="info"]/div[4]/div[3]/div[4]
+
+PER: //*[@id="info"]/div[4]/div[4]/div[1]
+WS:  //*[@id="info"]/div[4]/div[4]/div[2]
