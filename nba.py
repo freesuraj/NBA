@@ -134,21 +134,36 @@ def nbaBoxScore(box_id):
 	
 	return box_score
 
+def findPlayer(tree, result_xpath):
+	search_result = tree.xpath(result_xpath)
+	if search_result:
+		player_url = tree.xpath(result_xpath)[0].get('href')
+		name = tree.xpath(result_xpath+'/text()')[0]
+		return (name, player_url)
+
+def searchPlayer(player_url):
+	print(player_url)
+
 def playerProfile(player_name):
 	print("Searching for", player_name)
 	base_url = 'http://www.basketball-reference.com'
 	url = base_url+"/search/search.fcgi?search="+player_name
 	tree = SportsTree(url).tree
-	first_result_xpath = '//*[@id="players"]/div[1]/div[1]/a'
-	search_result = tree.xpath(first_result_xpath)
-	if search_result:
-		player_url = tree.xpath(first_result_xpath)[0].get('href')
-		name = tree.xpath(first_result_xpath+'/text()')[0]
-		print(name)
-		url = base_url + player_url
-		tree = SportsTree(url).tree
+
+	current_player_result_xpath = '//*[@id="players"]/div[1]/div[1]/strong/a'
+	retired_player_result_xpath = '//*[@id="players"]/div[1]/div[1]/a'
+
+	current = findPlayer(tree, current_player_result_xpath)
+	retired = findPlayer(tree, retired_player_result_xpath)
+
+	if current:
+		print("Found active player", current[0])
+		searchPlayer(base_url+current[1])
+	elif retired:
+		print("Found retired player", retired[0])
+		searchPlayer(base_url+retired[1])
 	else:
-		print("Couldn't find NBA Player ", player_name)
+		print("Can't find player", player_name)
 	
 	return
 
