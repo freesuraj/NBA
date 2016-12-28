@@ -1,3 +1,6 @@
+Search results
+current_player_xpath = //*[@id="players"]/div[1]/div[1]/strong/a
+
 summary block
 //*[@id="info"]/div[4]
 
