@@ -51,7 +51,7 @@ class BoxScore:
 		self.status = status
 
 	def print_score(self):
-		print(self.team1.team_name, " vs ", self.team2.team_name, "( ", self.status, " )")
+		print("\n"+self.team1.team_name + " vs " + self.team2.team_name + ": " + self.status)
 		print(tabulate([self.team1.scores_quarter, self.team2.scores_quarter]))
 
 		players = []
@@ -112,10 +112,24 @@ def nbaBoxScore(box_id):
 	for td in tree.xpath(vis_qtr_xpath):
 		visitor_scores.append(td.text_content())
 
+	visitor_total = 0
+	for score in visitor_scores:
+		if score.isdigit():
+			visitor_total = visitor_total + int(score)
+
+	visitor_scores.append(str(visitor_total))
+
 	hometeam_scores = []
 	home_qtr_xpath = '//*[@id="Col1-0-Boxscore"]/div[1]/div[3]/div/div/div[3]/div/div[2]/div/table/tbody/tr[2]/td'
 	for td in tree.xpath(home_qtr_xpath):
 		hometeam_scores.append(td.text_content())
+
+	home_total = 0
+	for score in hometeam_scores:
+		if score.isdigit():
+			home_total = home_total + int(score)
+
+	hometeam_scores.append(str(home_total))
 
 	team1 = TeamScore(visitor_name, visitor_scores)
 	team2 = TeamScore(hometeam_name, hometeam_scores)
