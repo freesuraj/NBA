@@ -35,6 +35,12 @@ deactivate
 ```
 
 #### Dependencies
+To install all dependencies at one go,
+
+```shell
+	pip install -r requirements.txt
+```
+
 * [requests](https://github.com/kennethreitz/requests)
 * [lxml](http://lxml.de/)
 * [tabulate](https://bitbucket.org/astanin/python-tabulate)
