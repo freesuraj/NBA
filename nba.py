@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-import time, requests
+import time
+import requests
 import datetime as date
 from lxml import html
 from tabulate import tabulate
@@ -78,7 +79,7 @@ def playerList(playerlist_xpath):
 	return players
 
 def playerScore(row):
-	player_name = first(row.xpath('th/div/a/text()'))
+	player_name = player(row.xpath('th/div/a/text()'))
 	mins 		= first(row.xpath('td[1]/text()'))
 	pt 			= first(row.xpath('td[14]/text()'))
 	fg 			= first(row.xpath('td[2]/text()'))
@@ -98,6 +99,9 @@ def playerScore(row):
 
 def first(list):
 	return list[0] if any(list) else ""
+
+def player(list):
+	return list[1] if len(list) == 2 else ""
 
 
 def nbaBoxScore(box_id):

@@ -6,6 +6,8 @@ summary block
 //*[@id="info"]/div[4]/div[1]/div/h4
 
 title: //*[@id="info"]/div[4]/div[1]/div/p[1]/strong
+Player -- //*[@id="Col1-0-Boxscore"]/div[3]/div/div/div[1]/div[2]/div/table/tbody/tr[1]/th/div/a
+Minutes: //*[@id="Col1-0-Boxscore"]/div[3]/div/div/div[1]/div[2]/div/table/tbody/tr[1]/td[1]
 
 Career: //*[@id="info"]/div[4]/div[1]/div/p[1]
 Season: //*[@id="info"]/div[4]/div[1]/div/p[2]
