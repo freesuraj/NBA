@@ -162,8 +162,8 @@ def findPlayer(tree, result_xpath):
 def searchPlayer(isCurrent, player_url):
 	tree = SportsTree(player_url).tree
 	parsables = ['/p[1]']
-	if isCurrent:
-		parsables.append('/p[2]')
+	# if isCurrent:
+	parsables.append('/p[2]')
 
 	title		=		('//*[@id="info"]/div[4]/div[1]/div', '/strong/text()')
 	games 		=  		('//*[@id="info"]/div[4]/div[2]/div[1]', '/text()')
